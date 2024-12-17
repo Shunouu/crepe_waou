@@ -1,0 +1,554 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #1b1b1b;
+  color: #fff;
+}
+
+/* header.php */
+
+header {
+  background-color: black;
+  padding: 5px 20px;
+  border-bottom: 1px solid black;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  flex: 0;
+  margin-right: 20px;
+}
+
+.logo img {
+  max-height: 60px;
+  width: auto;
+}
+
+.nav-links {
+  flex: 10;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+.auth-links {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  align-items: center;
+}
+
+.auth-links a {
+  text-decoration: none;
+  font-size: 14px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.auth-links .register-btn {
+  border: 1px solid #ff9f1c;
+  padding: 5px 8px;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.navbar {
+  position: relative;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 3px;
+  transition: color 0.3s;
+}
+
+.navbar a:hover {
+  color: #f4a424;
+}
+
+/* footer.php */
+footer {
+  background-color: black;
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* home.php */
+
+.hero {
+  position: relative;
+  background: url('../image/disque.jpg') no-repeat center center/cover;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-slider {
+  position: relative;
+  text-align: center;
+}
+
+.hero .slide img {
+  width: 100%;
+  height: auto;
+  opacity: 0.3;
+}
+
+.hero .slide-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  text-align: center;
+}
+
+.hero .btn {
+  display: inline-block;
+  background-color: #ff9f1c;
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  align-items: center;
+}
+
+.note {
+  font-size: 12px;
+  color: #ccc;
+  margin-top: -10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.btn {
+  color: #111;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+  width: 130px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+
+.features {
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #1b1b1b;
+}
+
+.features h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #ff9f1c;
+}
+
+.features-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.feature-item {
+  text-align: center;
+  max-width: 300px;
+  background: #333;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.feature-item img {
+  max-height: 80px;
+  margin-bottom: 15px;
+}
+
+.feature-item h3 {
+  color: #ff9f1c;
+  margin-bottom: 10px;
+}
+
+/*animation pour l'accueil*/
+
+.features-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  animation: featuresSlideIn 2s ease-in-out forwards;
+}
+
+.feature-item {
+  width: 300px;
+  opacity: 0;
+  transform: translateX(-30px);
+  animation: fadeInFeatures 1.5s ease-in-out forwards;
+}
+
+.feature-item:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.feature-item:nth-child(3) {
+  animation-delay: 1s;
+}
+
+@keyframes fadeInFeatures {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.features h2 {
+  font-size: 2rem;
+  color: #ff9f1c;
+  margin-bottom: 2rem;
+  text-align: center;
+  animation: fadeInTitle 1.5s ease-in-out forwards;
+}
+
+@keyframes fadeInTitle {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+}
+
+.slide-text {
+  text-align: center;
+  color: white;
+
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 90%;
+  animation: fadeInText 1.5s ease-in-out forwards;
+}
+
+.slide-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  animation: slideDown 1.5s ease forwards;
+}
+
+.slide-text p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  animation: slideUp 1.5s ease forwards;
+}
+
+.slide-text .btn {
+  padding: 10px 20px;
+  background-color: #ff9f1c;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.slide-text .btn:hover {
+  background-color: #ff9f1c;
+  transform: scale(1.1);
+}
+
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/*Animation pour catégories et les autres*/
+
+main {
+  margin: 30px auto;
+  max-width: 600px;
+  padding: 10px 30px;
+  background-color: black;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideInMain 0.8s ease-in-out forwards;
+}
+
+.category-box {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideInCategoryBox 0.8s ease-in-out forwards;
+  animation-delay: 0.6s;
+}
+
+@keyframes slideInNavbar {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInMain {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInCategoryBox {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* pour tous les "main" des fichiers categories.php, accessoires.php, cd.php, dvd.php et panier.php */
+
+main {
+  margin: 30px auto;
+  max-width: 600px;
+  padding: 10px 30px;
+  background-color: black;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+h1, h2 {
+  color: #f4a424;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: normal;
+  font-size: 24px;
+}
+
+/* pour les "img" des fichiers categories.php, accessoires.php, cd.php, dvd.php, login.php, formulaire.php et panier.php afin de les mieux centré */
+
+.product-item img {
+  display: block;
+  margin: 0 auto;
+}
+
+/* categories.php */
+
+.category-box {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+.category-item {
+  text-align: center;
+  width: 200px;
+  height: 200px;
+  border: 1px solid #ddd;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.category-item:hover {
+  transform: scale(1.1);
+}
+.category-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+.category-item h3 {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+footer {
+  margin-top: 50px;
+  text-align: center;
+  padding: 20px;
+  background-color: black;
+  color: #ccc;
+  border-top: 1px solid #444;
+}
+
+footer p {
+  margin: 10px 0;
+}
+
+footer img {
+  margin: 10px auto;
+  display: block;
+  max-width: 150px;
+}
+
+footer a {
+  color: #f4a424;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* login.php et formulaire.php */
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #f4a424;
+}
+
+input[type="text"], 
+input[type="email"], 
+input[type="password"] {
+  width: 100%;
+  padding: 0.5%;
+  background-color: #222;
+  border: 1px solid #444;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 14px;
+}
+input[type="text"]:focus, 
+input[type="email"]:focus, 
+input[type="password"]:focus {
+    outline: none;
+    border-color: #f4a424;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #f4a424;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+
+}
+
+.checkbox input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.checkbox label {
+    font-weight: normal;
+    color: #ccc;
+}
+
+
+

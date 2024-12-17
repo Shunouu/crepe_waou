@@ -2,39 +2,73 @@
 
 class MainController
 {
-    // Page d'accueil
     public function home()
     {
-        $this->render('home');
+        require_once __DIR__ . '/../views/home.php';
     }
 
-    // Page "About"
-    public function about()
+    public function login()
     {
-        $this->render('about');
+        require_once __DIR__ . '/../views/login.php';
     }
 
-    // Page 404
+    public function categories()
+    {
+        require_once __DIR__ . '/../views/categories.php';
+    }
+
+    public function cd()
+    {
+        require_once __DIR__ . '/../views/cd.php';
+    }
+
+    public function dvd()
+    {
+        require_once __DIR__ . '/../views/dvd.php';
+    }
+
+    public function accessoires()
+    {
+        require_once __DIR__ . '/../views/accessoires.php';
+    }
+
+    public function panier()
+    {
+        include_once __DIR__ . '/../views/panier.php';
+    }
+
+    public function ajouterAuPanier()
+    {
+        include_once __DIR__ . '/../views/ajouter_au_panier.php';
+    }
+
+    public function afficherPanier()
+    {
+        include __DIR__ . '/../views/panier.php';
+    
+    }
+
+    public function supprimerArticleDuPanier()
+    {
+        require_once __DIR__ . '/../views/supprimer_panier.php';
+    }
+
+    public function paiement()
+    {
+        require_once __DIR__ . '/../views/paiement.php';
+    }
+
+    public function formulaire()
+    {
+        require_once __DIR__ . '/../views/formulaire.php';
+    }
+
     public function notFound()
     {
+        header("HTTP/1.0 404 Not Found");
+        require_once __DIR__ . '/../views/404.php';
         http_response_code(404);
-        echo "404 - Page Not Found!";
-    }
-
-    // Méthode pour inclure une vue
-    private function render($view, $data = [])
-    {
-        // Transmet les données aux vues
-        extract($data);
-
-        // Inclut la vue demandée
-        $viewFile = __DIR__ . '/../views/' . $view . '.php';
-        if (file_exists($viewFile)) {
-            require_once __DIR__ . '/../views/partials/header.php';
-            require_once $viewFile;
-            require_once __DIR__ . '/../views/partials/footer.php';
-        } else {
-            echo "View not found: $view";
-        }
+        echo "<p>Désolé, la page que vous recherchez n'existe pas.</p>";
+        exit;
     }
 }
