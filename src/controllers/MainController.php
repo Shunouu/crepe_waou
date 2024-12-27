@@ -37,20 +37,10 @@ class MainController
         include_once __DIR__ . '/../views/panier.php';
     }
 
-    public function ajouterAuPanier()
-    {
-        include_once __DIR__ . '/../views/ajouter_au_panier.php';
-    }
-
     public function afficherPanier()
     {
         include __DIR__ . '/../views/panier.php';
     
-    }
-
-    public function supprimerArticleDuPanier()
-    {
-        require_once __DIR__ . '/../views/supprimer_panier.php';
     }
 
     public function paiement()
@@ -61,6 +51,11 @@ class MainController
     public function formulaire()
     {
         require_once __DIR__ . '/../views/formulaire.php';
+    }
+
+    public function basededonnee()
+    {
+        require_once __DIR__ . '/../views/db.php';
     }
 
     public function notFound()

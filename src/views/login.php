@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . '/partials/header.php';
+session_start();
+require_once('db.php');
 ?>
 
 <!DOCTYPE html>

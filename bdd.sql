@@ -5,6 +5,8 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
+USE crepe_waou;
+
 -- -----------------------------------------------------
 -- Table `home`
 -- -----------------------------------------------------
@@ -28,7 +30,6 @@ DROP TABLE IF EXISTS `category`;
 CREATE TABLE IF NOT EXISTS `category` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(64) NOT NULL COMMENT 'Nom de la catégorie',
-  `subtitle` VARCHAR(64) NULL COMMENT 'Sous-titre de la catégorie',
   `picture` VARCHAR(128) NULL COMMENT 'URL de l\'image de la catégorie',
   `home_order` TINYINT(1) NOT NULL DEFAULT 0 COMMENT 'Ordre d\'affichage sur la page d\'accueil',
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Date de création de la catégorie',
@@ -41,18 +42,15 @@ CREATE TABLE IF NOT EXISTS `category` (
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `product`;
 
-CREATE TABLE IF NOT EXISTS `product` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL COMMENT 'Nom du produit',
-  `description` TEXT NULL COMMENT 'Description du produit',
-  `picture` VARCHAR(128) NULL COMMENT 'URL de l\'image du produit',
-  `price` DECIMAL(10,2) NOT NULL DEFAULT 0 COMMENT 'Prix du produit',
-  `status` TINYINT(1) NOT NULL DEFAULT 0 COMMENT 'Statut du produit (1=disponible, 2=non disponible)',
-  `updated_at` TIMESTAMP NULL COMMENT 'Date de la dernière mise à jour du produit',
-  `category_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`category_id`) REFERENCES `category`(`id`)
+CREATE TABLE product (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,  -- Modifié ici pour INT UNSIGNED
+    nom VARCHAR(255) NOT NULL,
+    artiste VARCHAR(255) NOT NULL,
+    prix DECIMAL(10, 2) NOT NULL,
+    description TEXT NOT NULL,
+    image VARCHAR(255) NOT NULL
 ) ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table de connexion (login)
@@ -72,9 +70,8 @@ CREATE TABLE IF NOT EXISTS `login` (
 ) ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `product`
+-- Table `formulaire`
 -- -----------------------------------------------------
-
 
 CREATE TABLE `formulaire` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -102,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Date d\'ajout au panier',
   PRIMARY KEY (`id`),
   FOREIGN KEY (`user_id`) REFERENCES `login`(`id`),
-  FOREIGN KEY (`product_id`) REFERENCES `product`(`id`)
+  FOREIGN KEY (`product_id`) REFERENCES `product`(`id`) -- Pas de modification ici, car `product_id` et `id` sont déjà compatibles en UNSIGNED
 ) ENGINE = InnoDB;
 
 -- -----------------------------------------------------
@@ -141,10 +138,12 @@ INSERT INTO product (nom, prix, description, image) VALUES
 ('Casque Audio - Sony', 25.00, 'Découvrez une qualité audio exceptionnelle avec ce casque Sony. Il est idéal pour écouter de la musique et son design ergonomique garantit un confort optimal.', '/image/accessoire_1.jpg'),
 ('Chargeur Universel - Samsung', 15.50, 'Ce chargeur universel rapide de Samsung est parfait pour recharger vos appareils en un temps record. Compatible avec la plupart des smartphones et tablettes.', '/image/accessoire_2.jpg'),
 ('Support de Téléphone - Apple', 10.00, 'Maintenez votre téléphone en toute sécurité grâce à ce support robuste et élégant signé Apple. Il est parfait pour regarder des vidéos ou utiliser votre GPS.', '/image/accessoire_3.jpg'),
-('Enceinte Bluetooth - JBL', 35.00, 'Profitez d\'un son puissant et clair avec cette enceinte Bluetooth portable JBL. Idéale pour écouter de la musique en extérieur, elle offre une autonomie prolongée.', '/image/accessoire_4.jpg'),
-('Adaptateur HDMI - Belkin', 12.50, 'Connectez facilement vos appareils grâce à cet adaptateur HDMI de Belkin. Compatible avec les téléviseurs et les consoles de jeux.', '/image/accessoire_5.jpg');
+('Enceinte Bluetooth - JBL', 35.00, 'Appréciez un son de qualité supérieure avec cette enceinte Bluetooth portable JBL. Parfaite pour les fêtes ou les moments de détente.', '/image/accessoire_4.jpg'),
+('Sac à Dos - Nike', 40.00, 'Un sac à dos pratique et stylé de Nike, parfait pour vos activités sportives ou pour une utilisation quotidienne.', '/image/accessoire_5.jpg');
 COMMIT;
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+-- -----------------------------------------------------
+-- Réactivation des contraintes de clé étrangère
+-- -----------------------------------------------------
+SET FOREIGN_KEY_CHECKS=1;
+SET UNIQUE_CHECKS=1;

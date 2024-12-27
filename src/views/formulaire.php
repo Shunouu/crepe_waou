@@ -1,32 +1,53 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+session_start();
+require_once('db.php'); // Assurez-vous que ce fichier contient la connexion PDO à la base de données
 
-    $nom = $_POST['nom'];
-    $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $adresse = $_POST['adresse'];
-    $ville = $_POST['ville'];
-    $code_postal = $_POST['code_postal'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nom = htmlspecialchars($_POST['nom']);
+    $email = htmlspecialchars($_POST['email']);
+    $password = htmlspecialchars($_POST['password']);
+    $confirm_password = htmlspecialchars($_POST['confirm_password']);
+    $adresse = htmlspecialchars($_POST['adresse']);
+    $ville = htmlspecialchars($_POST['ville']);
+    $code_postal = htmlspecialchars($_POST['code_postal']);
     $newsletter = isset($_POST['newsletter']) ? 1 : 0;
 
-    $mysqli = new mysqli('localhost', 'username', 'password', 'database');
-    if ($mysqli->connect_error) {
-        die("Connection failed: " . $mysqli->connect_error);
-    }
-
-    $query = "INSERT INTO formulaire (nom, email, password, adresse, ville, code_postal, newsletter) 
-              VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-    if ($stmt = $mysqli->prepare($query)) {
-        $stmt->bind_param('ssssssi', $nom, $email, $password, $adresse, $ville, $code_postal, $newsletter);
-        $stmt->execute();
-        echo "Inscription réussie !";
-        $stmt->close();
+    // Vérification des champs vides
+    if (empty($nom) || empty($email) || empty($password) || empty($confirm_password) || empty($adresse) || empty($ville) || empty($code_postal)) {
+        $erreur = "Veuillez remplir tous les champs.";
+    } elseif ($password !== $confirm_password) {
+        $erreur = "Les mots de passe ne correspondent pas.";
     } else {
-        echo "Erreur lors de l'inscription.";
-    }
+        // Vérification si l'email existe déjà
+        $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE email = :email");
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch();
 
-    $mysqli->close();
+        if ($user) {
+            $erreur = "L'email est déjà utilisé.";
+        } else {
+            // Hachage du mot de passe
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+            // Insertion des données
+            try {
+                $stmt = $pdo->prepare("INSERT INTO utilisateurs (nom, email, password, adresse, ville, code_postal, newsletter) VALUES (:nom, :email, :password, :adresse, :ville, :code_postal, :newsletter)");
+                $stmt->execute([
+                    'nom' => $nom,
+                    'email' => $email,
+                    'password' => $hashed_password,
+                    'adresse' => $adresse,
+                    'ville' => $ville,
+                    'code_postal' => $code_postal,
+                    'newsletter' => $newsletter
+                ]);
+
+                $success = "Inscription réussie ! Vous pouvez vous connecter.";
+            } catch (Exception $e) {
+                $erreur = "Erreur lors de l'inscription : " . $e->getMessage();
+            }
+        }
+    }
 }
 ?>
 
