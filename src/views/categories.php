@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -25,17 +29,29 @@
         </ul>
 
         <div class="auth-links">
-            <a href="/login">Connexion</a>
-            <a href="/formulaire" class="register-btn">S'inscrire</a>
+            <?php if (isset($_SESSION['user_nom'])): ?>
+                <span>Bienvenue, <?= htmlspecialchars($_SESSION['user_nom']); ?> !</span>
+                <a href="/logout" class="logout-btn">Déconnexion</a>
+            <?php else: ?>
+                <a href="/login" class="login-btn">Connexion</a>
+                <a href="/formulaire" class="register-btn">S'inscrire</a>
+            <?php endif; ?>
+        </div>
         </div>
     </nav>
 </header>
 
 <?php
 
-$mysqli = new mysqli('localhost', 'root', 'Shun935', 'ecom');
+$host = 'localhost';
+$user = 'root';
+$password = 'Shun935';
+$dbname = 'crepe_waou';
+$port = 3306;
+
+$mysqli = new mysqli($host, $user, $password, $dbname, $port);
 if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
+    die('Connection failed: ' . $mysqli->connect_error);
 }
 
 $query = "SELECT name, picture FROM category ORDER BY home_order";

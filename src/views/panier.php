@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-
 if (isset($_GET['del'])) {
     $id = $_GET['del'];
     unset($_SESSION['panier'][$id]);
@@ -111,6 +110,7 @@ $produits_disponibles = [
     ]
 ];
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -133,8 +133,13 @@ $produits_disponibles = [
             <li><a href="/panier">Panier</a></li>
         </ul>
         <div class="auth-links">
-            <a href="/login">Connexion</a>
-            <a href="/formulaire" class="register-btn">S'inscrire</a>
+            <?php if (isset($_SESSION['user_nom'])): ?>
+                <span>Bienvenue, <?= htmlspecialchars($_SESSION['user_nom']); ?> !</span>
+                <a href="/logout" class="logout-btn">Déconnexion</a>
+            <?php else: ?>
+                <a href="/login" class="login-btn">Connexion</a>
+                <a href="/formulaire" class="register-btn">S'inscrire</a>
+            <?php endif; ?>
         </div>
     </nav>
 </header>
@@ -144,49 +149,47 @@ $produits_disponibles = [
 
     <?php if (isset($_SESSION['panier']) && !empty($_SESSION['panier'])): ?>
         <table>
-    <thead>
-        <tr>
-            <th>Produit</th>
-            <th>Quantité</th>
-            <th>Prix</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-        $total = 0;
-        foreach ($_SESSION['panier'] as $id => $quantite):
-            if (isset($produits_disponibles[$id])):
-                $produit = $produits_disponibles[$id];
-                $prix_total = $produit['prix'] * $quantite;
-                $total += $prix_total;
+            <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Quantité</th>
+                    <th>Prix</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $total = 0;
+                foreach ($_SESSION['panier'] as $id => $quantite):
+                    if (isset($produits_disponibles[$id])):
+                        $produit = $produits_disponibles[$id];
+                        $prix_total = $produit['prix'] * $quantite;
+                        $total += $prix_total;
                 ?>
                 <tr>
                     <td>
-                        <img src="<?php echo $produit['image']; ?>" alt="<?php echo $produit['nom']; ?>" width="50">
-                        <?php echo $produit['nom']; ?>
+                        <img src="<?= $produit['image']; ?>" alt="<?= $produit['nom']; ?>" width="50">
+                        <?= $produit['nom']; ?>
                     </td>
-                    <td><?php echo $quantite; ?></td>
-                    <td>€<?php echo number_format($produit['prix'], 2); ?></td>
+                    <td><?= $quantite; ?></td>
+                    <td>€<?= number_format($produit['prix'], 2); ?></td>
                     <td>
                         <form action="" method="get">
-                            <input type="hidden" name="del" value="<?php echo $id; ?>">
+                            <input type="hidden" name="del" value="<?= $id; ?>">
                             <button type="submit" class="btn-supprimer">Supprimer</button>
                         </form>
                     </td>
                 </tr>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    </tbody>
-</table>
-<p><strong>Total : €<?php echo number_format($total, 2); ?></strong></p>
-    
+                <?php endif; ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <p><strong>Total : €<?= number_format($total, 2); ?></strong></p>
     <?php else: ?>
         <p>Votre panier est vide.</p>
     <?php endif; ?>
 </main>
-<?php
-require_once __DIR__ . '/partials/footer.php';
-?>
+
+<?php require_once __DIR__ . '/partials/footer.php'; ?>
 </body>
 </html>

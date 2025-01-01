@@ -1,14 +1,16 @@
 <?php
-$host = 'localhost'; // ou ton adresse de serveur MySQL
-$dbname = 'crepe_waou'; // remplace par le nom de ta base de données
-$username = 'root'; // ou un autre utilisateur MySQL
-$password = 'root'; // mot de passe de ton utilisateur MySQL
+$host = 'localhost';
+$dbname = 'crepe_waou';
+$username = 'root';
+$password = 'Shun935';
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connexion réussie!";
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false
+    ]);
 } catch (PDOException $e) {
-    echo "Erreur de connexion : " . $e->getMessage();
+    die("Erreur de connexion à la base de données : " . $e->getMessage());
 }
 ?>
