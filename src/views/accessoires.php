@@ -41,7 +41,9 @@ if (isset($_GET['add'])) {
         </ul>
         <div class="auth-links">
             <?php if (isset($_SESSION['user_nom'])): ?>
-                <span>Bienvenue, <?= htmlspecialchars($_SESSION['user_nom']); ?> !</span>
+                <a href="/product" style="text-decoration: none; color: inherit;">
+                    Bienvenue, <?= htmlspecialchars($_SESSION['user_nom']); ?> !
+                </a>
                 <a href="/logout" class="logout-btn">Déconnexion</a>
             <?php else: ?>
                 <a href="/login" class="login-btn">Connexion</a>

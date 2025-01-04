@@ -29,8 +29,11 @@ session_start();
         </ul>
 
         <div class="auth-links">
-            <?php if (isset($_SESSION['user_nom'])): ?>
-                <span>Bienvenue, <?= htmlspecialchars($_SESSION['user_nom']); ?> !</span>
+            
+                <?php if (isset($_SESSION['user_nom'])): ?>
+                <a href="/product" style="text-decoration: none; color: inherit;">
+                    Bienvenue, <?= htmlspecialchars($_SESSION['user_nom']); ?> !
+                </a>
                 <a href="/logout" class="logout-btn">Déconnexion</a>
             <?php else: ?>
                 <a href="/login" class="login-btn">Connexion</a>
