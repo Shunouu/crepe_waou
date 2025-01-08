@@ -9,6 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $nom_utilisateur = $_SESSION['user_nom'];
 
+
 $stmt = $pdo->query("SELECT * FROM product");
 $product_disponibles = $stmt->fetchAll();
 
